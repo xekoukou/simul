@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Simulation</title>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<script src="d3.min.js"></script>
+<script src="Markdown.Converter.min.js"></script>
+<script src="sigma.min.js"></script>
+<script src="sigma.layout.forceAtlas2.min.js"></script>
+<script src="jquery-2.1.4.min.js"></script>
+<script src="chart.js"></script>
+<script src="simulate.js"></script>
+<script src="equations.js"></script>
+<script src="markdown.js"></script>
+<link rel="stylesheet" href="pure-min.css">
+<link rel="stylesheet" href="chart.css">
+</head>
+<body>
+    <h1>Economic Simulation</h1>
+    <div style="top:0px; left:0px; position:fixed;">
+    <button onClick='simulate.start()'>start</button>
+    <button onClick='simulate.continue()'>continue</button>
+    <button onClick='simulate.stop()'>stop</button>
+    <button onClick='simulate.reset()'>reset</button>
+    </div> 
+    <div>
+        <p class="markdown">
+Simulations fail to explain reality because their model assumes some conditions that do not exist in reality. This effort will try to point the assumptions of the simulation model and try to check under the most wide assumptions the effects of the simulation. Of course, this will not be complete.
+
+By making asumptions, we simplify reality and that allows us to make the simulation.
+
+Independent agents
+-----------------
+
+Our first assumption is that we have a set of independent agents and that the population growth is independent of the model and follows a specific function.
+
+        </p>
+    <div class="chart" id="test_id">
+    </div> 
+        <p class="markdown">
+This is the population. Since there are no deaths and all married can have children, the function is exponential.
+        </p>
+    <div class="chart" id="test_id2">
+    </div>
+        <p class="markdown"> This chart shows the population of the young people. At first the young people are almost zero.
+    </p>
+    <div class="graph" id="graph_id">
+    </div>
+    </div>
+</body>
+</html>
