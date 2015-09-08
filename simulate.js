@@ -88,7 +88,7 @@ function Simulate(initial_values_, charts_info, graphs_info, equations) {
             $("#" + each[1]).empty();
         });
         graphs_info.forEach(function(each) {
-            if($("#" + each[0]).length > 0 ) {
+            if($("#" + each[0]).children().length > 0 ) {
             xgraphs[each[0]].killForceAtlas2();
             xgraphs[each[0]].kill();
             $("#" + each[0]).empty();
