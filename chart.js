@@ -1,49 +1,58 @@
-function Point(x,y) {
+function Point(x, y) {
     this.x = x;
     this.y = y;
 }
 
-function Chart(root_element,y_name,width_ext,height_ext) {
-    
+function Chart(root_element, y_name, width_ext, height_ext) {
+
     this.root_element = root_element;
     this.data = [];
     this.y_name = y_name;
 
-    $("#"+this.root_element).empty();
+    $("#" + this.root_element).empty();
 
-    var margin = {top: 20, right: 20, bottom: 30, left: 50},
+    var margin = {
+            top: 20,
+            right: 20,
+            bottom: 30,
+            left: 50
+        },
         width = width_ext - margin.left - margin.right,
         height = height_ext - margin.top - margin.bottom;
-    
+
     var x = d3.scale.linear()
         .range([0, width]);
-    
+
     var y = d3.scale.linear()
         .range([height, 0]);
-    
+
     var xAxis = d3.svg.axis()
         .scale(x)
         .orient("bottom");
-    
+
     var yAxis = d3.svg.axis()
         .scale(y)
         .orient("left");
-    
-    var line = d3.svg.line()
-        .x(function(d) { return x(d.x); })
-        .y(function(d) { return y(d.y); });
 
-    var svg = d3.select("#"+this.root_element).append("svg")
+    var line = d3.svg.line()
+        .x(function(d) {
+            return x(d.x);
+        })
+        .y(function(d) {
+            return y(d.y);
+        });
+
+    var svg = d3.select("#" + this.root_element).append("svg")
         .attr("width", width + margin.left + margin.right)
         .attr("height", height + margin.top + margin.bottom)
-      .append("g")
+        .append("g")
         .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
-    
+
     var xAxisDraw = svg.append("g")
         .attr("class", "x axis")
         .attr("transform", "translate(0," + height + ")");
-        xAxisDraw.call(xAxis);
-  
+    xAxisDraw.call(xAxis);
+
     var yAxisDraw = svg.append("g")
         .attr("class", "y axis");
     yAxisDraw.append("text")
@@ -53,7 +62,7 @@ function Chart(root_element,y_name,width_ext,height_ext) {
         .style("text-anchor", "end")
         .text(y_name);
 
-        yAxisDraw.call(yAxis);
+    yAxisDraw.call(yAxis);
 
     var chart = svg.append("path")
         .attr("class", "line");
@@ -61,17 +70,21 @@ function Chart(root_element,y_name,width_ext,height_ext) {
     this.add = function(points) {
 
         var data = this.data;
-        points.forEach(function(point){
-        data.push(point);
+        points.forEach(function(point) {
+            data.push(point);
         });
 
-        x.domain(d3.extent(this.data, function(d) { return d.x; }));
-        y.domain(d3.extent(this.data, function(d) { return d.y; }));
+        x.domain(d3.extent(this.data, function(d) {
+            return d.x;
+        }));
+        y.domain(d3.extent(this.data, function(d) {
+            return d.y;
+        }));
 
         xAxisDraw.call(xAxis);
         yAxisDraw.call(yAxis);
 
         chart.datum(this.data)
-          .attr("d", line);
+            .attr("d", line);
     }
 }

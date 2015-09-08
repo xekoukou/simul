@@ -1,10 +1,10 @@
 function Person(id, birth_year) {
     this.clone = true;
-        this.x = Math.floor(Math.random() * 101);
-        this.y = Math.floor(Math.random() * 101);
+    this.x = Math.floor(Math.random() * 101);
+    this.y = Math.floor(Math.random() * 101);
     this.size = 2;
     this.color = '#f00';
-    this.id = ""+id;
+    this.id = "" + id;
     this.birth_year = birth_year;
     this.gender = (Math.floor(Math.random() * 2) == 1) ? "male" : "female";
     this.children = [];
@@ -14,25 +14,25 @@ function Person(id, birth_year) {
 }
 
 function create_initial_values() {
-var people = [];
-people.push(new Person(1, 0));
-people.push(new Person(2, 0));
-people.push(new Person(3, 0));
-people.push(new Person(4, 0));
-people.push(new Person(5, 0));
+    var people = [];
+    people.push(new Person(1, 0));
+    people.push(new Person(2, 0));
+    people.push(new Person(3, 0));
+    people.push(new Person(4, 0));
+    people.push(new Person(5, 0));
 
 
-return {
-    "next_id": 6,
-    "people": people,
-    "not_married_male": [],
-    "not_married_female": [],
-    "married_female": [],
-    "young": people.slice(),
-    "number_young": 5,
-    "number_married": 0,
-    "population": 5
-};
+    return {
+        "next_id": 6,
+        "people": people,
+        "not_married_male": [],
+        "not_married_female": [],
+        "married_female": [],
+        "young": people.slice(),
+        "number_young": 5,
+        "number_married": 0,
+        "population": 5
+    };
 }
 
 var initial_values = create_initial_values();
@@ -72,7 +72,7 @@ function population(t, values, graphs_all) {
             values.number_married += 2;
             married_female.push(woman);
             graph.addEdge({
-                "id":woman.id+man.id,
+                "id": woman.id + man.id,
                 "source": woman.id,
                 "target": man.id
             });
@@ -111,12 +111,12 @@ function population(t, values, graphs_all) {
 
             graph.addNode(child);
             graph.addEdge({
-                "id":woman.id+child.id,
+                "id": woman.id + child.id,
                 "source": woman.id,
                 "target": child.id
             });
             graph.addEdge({
-                "id":woman.second_half.id+child.id,
+                "id": woman.second_half.id + child.id,
                 "source": woman.second_half.id,
                 "target": child.id
             });
@@ -144,9 +144,9 @@ function population(t, values, graphs_all) {
 
 var simulate = new Simulate(
     initial_values, [
-        ["population", "test_id", 900, 400]
-        ,["number_young", "test_id2", 900, 400]
-        ,["number_married", "test_id3", 900, 400]
+        ["population", "test_id", 900, 400],
+        ["number_young", "test_id2", 900, 400],
+        ["number_married", "test_id3", 900, 400]
     ], [
-        ["graph_id", 1200, 800, "people" ,null]
+        ["graph_id", 1200, 800, "people", null]
     ], population);

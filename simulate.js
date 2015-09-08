@@ -47,7 +47,7 @@ function Simulate(initial_values_, charts_info, graphs_info, equations) {
             xcharts = {};
             xpoints = {};
             charts_info.forEach(function(each) {
-                xcharts[each[0]] = new Chart(each[1], each[0], each[2],each[3]);
+                xcharts[each[0]] = new Chart(each[1], each[0], each[2], each[3]);
                 xpoints[each[0]] = [];
             });
             graphs_info.forEach(function(each) {
@@ -58,7 +58,10 @@ function Simulate(initial_values_, charts_info, graphs_info, equations) {
                     "nodes": each[3] == null ? [] : values[each[3]],
                     "edges": each[4] == null ? [] : values[each[4]]
                 });
-                xgraphs[each[0]].startForceAtlas2({"worker":true,"barnesHutOptimize":true});
+                xgraphs[each[0]].startForceAtlas2({
+                    "worker": true,
+                    "barnesHutOptimize": true
+                });
             });
 
             m = 1;
@@ -88,10 +91,10 @@ function Simulate(initial_values_, charts_info, graphs_info, equations) {
             $("#" + each[1]).empty();
         });
         graphs_info.forEach(function(each) {
-            if($("#" + each[0]).children().length > 0 ) {
-            xgraphs[each[0]].killForceAtlas2();
-            xgraphs[each[0]].kill();
-            $("#" + each[0]).empty();
+            if ($("#" + each[0]).children().length > 0) {
+                xgraphs[each[0]].killForceAtlas2();
+                xgraphs[each[0]].kill();
+                $("#" + each[0]).empty();
             }
         });
         this.hasStarted = false;
