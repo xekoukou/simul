@@ -72,10 +72,11 @@ function population(t, values, graphs_all) {
             values.number_married += 2;
             married_female.push(woman);
             graph.addEdge({
-                "id": woman.id + man.id,
+                "id": "" + values.next_id,
                 "source": woman.id,
                 "target": man.id
             });
+            values.next_id++;
         } else {
             i++;
         }
@@ -111,15 +112,17 @@ function population(t, values, graphs_all) {
 
             graph.addNode(child);
             graph.addEdge({
-                "id": woman.id + child.id,
+                "id": "" + values.next_id,
                 "source": woman.id,
                 "target": child.id
             });
+            values.next_id++;
             graph.addEdge({
-                "id": woman.second_half.id + child.id,
+                "id": "" + values.next_id,
                 "source": woman.second_half.id,
                 "target": child.id
             });
+            values.next_id++;
 
         }
     }
