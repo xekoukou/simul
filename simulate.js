@@ -32,9 +32,12 @@ function Simulate(initial_values_, charts_info, graphs_info, equations) {
                 xpoints[key] = [];
             });
             Object.keys(xgraphs).forEach(function(key) {
+                xgraphs[key].killForceAtlas2();
                 xgraphs[key].refresh();
-                xgraphs[key].stopForceAtlas2();
-                xgraphs[key].startForceAtlas2();
+                xgraphs[key].startForceAtlas2({
+                    "worker": true,
+                    "barnesHutOptimize": true
+                });
             });
         }, 1);
     }
