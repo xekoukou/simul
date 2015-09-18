@@ -1,4 +1,4 @@
-function Graph(root_element_, width_, height_, init_nodes , init_links_ext) {
+function Graph(root_element_, width_, height_, init_nodes, init_links_ext) {
 
     var nodes = [];
     var links = [];
@@ -163,10 +163,10 @@ function Graph(root_element_, width_, height_, init_nodes , init_links_ext) {
 
     }
     var self = this;
-    init_nodes.forEach(function(each){
-    self.add_node(each);
+    init_nodes.forEach(function(each) {
+        self.add_node(each);
     });
-    init_links_ext.forEach(function(each){
-    self.add_link(each);
+    init_links_ext.forEach(function(each) {
+        self.add_link(each);
     });
 }

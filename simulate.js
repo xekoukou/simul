@@ -31,6 +31,14 @@ function Simulate(initial_values_, charts_info, graphs_info, equations) {
                 xcharts[key].add(xpoints[key]);
                 xpoints[key] = [];
             });
+            Object.keys(xgraphs).forEach(function(key) {
+                xgraphs[key].killForceAtlas2();
+                xgraphs[key].refresh();
+                xgraphs[key].startForceAtlas2({
+                    "worker": true,
+                    "barnesHutOptimize": true
+                });
+            });
         }, 1);
     }
 
@@ -46,7 +54,17 @@ function Simulate(initial_values_, charts_info, graphs_info, equations) {
                 xpoints[each[0]] = [];
             });
             graphs_info.forEach(function(each) {
-                xgraphs[each[0]] = new Graph(each[0], each[1], each[2], each[3] == null ? []:values[each[3]], each[4] == null ? []:values[each[4]]);
+                $("#" + each[0]).css("width", each[1]);
+                $("#" + each[0]).css("height", each[2]);
+                xgraphs[each[0]] = new sigma(each[0]);
+                xgraphs[each[0]].graph.read({
+                    "nodes": each[3] == null ? [] : values[each[3]],
+                    "edges": each[4] == null ? [] : values[each[4]]
+                });
+                xgraphs[each[0]].startForceAtlas2({
+                    "worker": true,
+                    "barnesHutOptimize": true
+                });
             });
 
             m = 1;
@@ -76,7 +94,11 @@ function Simulate(initial_values_, charts_info, graphs_info, equations) {
             $("#" + each[1]).empty();
         });
         graphs_info.forEach(function(each) {
-            $("#" + each[0]).empty();
+            if ($("#" + each[0]).length > 0) {
+                xgraphs[each[0]].killForceAtlas2();
+                xgraphs[each[0]].kill();
+                $("#" + each[0]).empty();
+            }
         });
         this.hasStarted = false;
         y = 0;

@@ -3,30 +3,75 @@
 <head>
 <title>Simulation</title>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<script src="https://cdnjs.cloudflare.com/ajax/libs/d3/3.5.5/d3.min.js"></script>
-<script src="http://code.jquery.com/jquery-2.1.4.min.js"></script>
+<script src="d3.min.js"></script>
+<script src="Markdown.Converter.min.js"></script>
+<link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/8.8.0/styles/default.min.css">
+<script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/8.8.0/highlight.min.js"></script>
+
+<script src="sigma.min.js"></script>
+<script src="sigma.layout.forceAtlas2.min.js"></script>
+<script src="jquery-2.1.4.min.js"></script>
 <script src="chart.js"></script>
-<script src="graph.js"></script>
 <script src="simulate.js"></script>
 <script src="equations.js"></script>
-<link rel="stylesheet" href="http://yui.yahooapis.com/pure/0.5.0/pure-min.css">
+<script src="markdown.js"></script>
+<link rel="stylesheet" href="pure-min.css">
 <link rel="stylesheet" href="chart.css">
-<link rel="stylesheet" href="graph.css">
+<script>
+$(document).ready(function() {
+      $('.markdown code').each(function(i, block) {
+              hljs.highlightBlock(block);
+                });
+});
+
+</script>
 </head>
 <body>
-    <h1>Simulation</h1>
-    <p>This is a first test</p>
+    <h1>Economic Simulation</h1>
+    <div style="top:0px; left:0px; position:fixed;">
     <button onClick='simulate.start()'>start</button>
     <button onClick='simulate.continue()'>continue</button>
     <button onClick='simulate.stop()'>stop</button>
     <button onClick='simulate.reset()'>reset</button>
+    </div> 
     <div>
+        <p class="markdown">
+
+# Person
+
+
+
+# Commodity
+
+A *commodity* is a product that is sold in the market place in exchange for money.
+
+A commodity has a *number of uses* and an *expiration date*.
+
+# Fixed Capital
+
+Fixed Capital are the tools that are used in the production process to create products.
+
+Each type of Fixed capital has a *production function*.
+
+## Production function
+
+The production function is the function that determines the output of a production process with the use of specific Manufacturing tools and personnel.
+
+```
+int y = 0;
+```
+
+        </p>
+
     <div class="chart" id="test_id">
-    </div>
+    </div> 
+        <p class="markdown">
+This is the population. Since there are no deaths and all married can have children, the function is exponential.
+        </p>
     <div class="chart" id="test_id2">
     </div>
-    <div class="chart" id="test_id3">
-    </div>
+        <p class="markdown"> This chart shows the population of the young people. At first the young people are almost zero.
+    </p>
     <div class="graph" id="graph_id">
     </div>
     </div>
