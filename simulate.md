@@ -5,7 +5,7 @@ We pass the code that represents the simulation, we provide the initial values o
 We also want our simulation to be started, stoped, continued, reset.
 
 The initial values is an object that has as properties the values we simulate. The keys are the names of the values.
-In order to be able to reset our simulation, we need to keep the initial values of the simulation. Thus, the initial values need to provide a method to clone its data so as to be passed to the simuation.
+In order to be able to reset our simulation, we need to keep the initial values of the simulation. Thus, the initial values need to provide a method to clone its data so as to be passed to the simulation.
 
 In order to expose the data to the viewer , we need to be able to incrementaly update our charts/graphs etc.. We also need to provide each chart/graph the location in the html document that we want the chart/graph to exist.
 
@@ -40,7 +40,7 @@ function Simulation(initial_values_, charts_info_, graphs_info_, equations_, sam
     this.sample_rate = sample_rate_;
     this.update_rate = update_rate_;
     this.time = 0;
-    this.sampled_time = 0;
+    this.sample_time = 0;
 
 }
 ```
@@ -53,8 +53,8 @@ Simulation.prototype.simulate = function() {
     var self = this;
     return setInterval(function() {
         var l = 1;
-        while (self.time < self.update_time * (self.sampled_time + 1)) {
-            while (self.time < self.update_time * self.sampled_time + l * self.sample_rate) {
+        while (self.time < self.update_rate * (self.sample_time + 1)) {
+            while (self.time < self.update_rate * self.sample_time + l * self.sample_rate) {
                 self.equations(self.time, self.values, self.xgraphs);
                 self.time++;
             }
@@ -63,7 +63,7 @@ Simulation.prototype.simulate = function() {
                 self.xpoints[key].push(new Point(self.time, self.values[key]))
             });
         }
-        self.sampled_time++;
+        self.sample_time++;
         Object.keys(self.xpoints).forEach(function(key) {
             self.xcharts[key].add(self.xpoints[key]);
             self.xpoints[key] = [];
@@ -89,18 +89,18 @@ For these functions we save 2 variables that show the state of the simulation.
 The start function clones the initial values, initializes the charts and graphs and starts the simulation.
 
 ```
-Simuation.prototype.start = function() {
+Simulation.prototype.start = function() {
     var self = this;
     if (self.hasStopped == true && self.hasStarted == false) {
         self.values = self.initial_values.clone();
 
 
         self.charts_info.forEach(function(each) {
-            self.charts[each[0]] = new Chart(each[1], each[0], each[2], each[3]);
+            self.xcharts[each[0]] = new Chart(each[1], each[0], each[2], each[3]);
             self.xpoints[each[0]] = [];
         });
 
-        graphs_info.forEach(function(each) {
+        self.graphs_info.forEach(function(each) {
             $("#" + each[0]).css("width", each[1]);
             $("#" + each[0]).css("height", each[2]);
             self.xgraphs[each[0]] = new sigma(each[0]);
@@ -127,7 +127,7 @@ The stop function and continue functions:
 ```
 Simulation.prototype.stop = function() {
     if (this.hasStopped == false) {
-        clearInterval(self.simulate_id);
+        clearInterval(this.simulate_id);
         this.hasStopped = true;
     }
 }
@@ -143,7 +143,7 @@ Simulation.prototype.continue = function() {
 The reset function cleans the previous data and the charts/graphs from the DOM.
 
 ```
-Simuation.prototype.reset = function() {
+Simulation.prototype.reset = function() {
     var self = this;
     self.stop();
 
