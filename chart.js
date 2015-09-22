@@ -93,5 +93,5 @@ function Chart(root_element_, x_name_, y_name_, width_ext, height_ext) {
 
         chart.datum(this.data)
             .attr("d", line);
-    }
+    };
 }

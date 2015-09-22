@@ -21,8 +21,8 @@ We encapsulate the data of the simulation in a javascript object.
 ```
 function Simulation(initial_values_, charts_info_, graphs_info_, equations_, sample_rate_, update_rate_) {
    
-    this.initial_values = initial_values;
-    this.values;
+    this.initial_values = initial_values_;
+    this.values = null;
 
     this.charts_info = charts_info_;
     this.graphs_info = graphs_info_;
@@ -30,7 +30,7 @@ function Simulation(initial_values_, charts_info_, graphs_info_, equations_, sam
 
     this.hasStarted = false;
     this.hasStopped = true;
-    this.simulate_id;
+    this.simulate_id = 0;
 
     this.xgraphs = {};
     this.xcharts = {};
@@ -62,7 +62,7 @@ Simulation.prototype.simulate = function() {
             Object.keys(self.xpoints).forEach(function(key) {
                 var x_name = self.xcharts[key].x_name;
                 var y_name = self.xcharts[key].y_name;
-                self.xpoints[key].push(new Point(x_name == 'time' ? self.time : self.values[x_name], self.values[y_name]))
+                self.xpoints[key].push(new Point(x_name == 'time' ? self.time : self.values[x_name], self.values[y_name]));
             });
         }
         self.sample_time++;
@@ -73,14 +73,13 @@ Simulation.prototype.simulate = function() {
         Object.keys(self.xgraphs).forEach(function(key) {
             self.xgraphs[key].killForceAtlas2();
             self.xgraphs[key].refresh();
-            self.xgraphs[key].startForceAtlas2();
-//            self.xgraphs[key].startForceAtlas2({
-//                "worker": true,
-//                "barnesHutOptimize": true
-//            });
+            self.xgraphs[key].startForceAtlas2({
+                "worker": true,
+                "barnesHutOptimize": true
+            });
         });
     }, 1);
-}
+};
 ```
 
 Next, we need to specify the functions that start,stop,continue and reset the simulation.
@@ -94,7 +93,7 @@ The start function clones the initial values, initializes the charts and graphs 
 ```
 Simulation.prototype.start = function() {
     var self = this;
-    if (self.hasStopped == true && self.hasStarted == false) {
+    if (self.hasStopped === true && self.hasStarted === false) {
         self.values = self.initial_values.clone();
 
 
@@ -108,21 +107,21 @@ Simulation.prototype.start = function() {
             $("#" + each[0]).css("height", each[2]);
             self.xgraphs[each[0]] = new sigma(each[0]);
             self.xgraphs[each[0]].graph.read({
-                "nodes": each[3] == null ? [] : self.values[each[3]],
-                "edges": each[4] == null ? [] : self.values[each[4]]
+                "nodes": each[3] === null ? [] : self.values[each[3]],
+                "edges": each[4] === null ? [] : self.values[each[4]]
             });
             self.xgraphs[each[0]].startForceAtlas2();
-//            self.xgraphs[each[0]].startForceAtlas2({
-//               "worker": true,
-//              "barnesHutOptimize": true
-//         });
+            self.xgraphs[each[0]].startForceAtlas2({
+               "worker": true,
+              "barnesHutOptimize": true
+         });
         });
 
         self.simulate_id = self.simulate();
         self.hasStopped = false;
         self.hasStarted = true;
     }
-}
+};
 
 ```
 
@@ -130,18 +129,18 @@ The stop function and continue functions:
 
 ```
 Simulation.prototype.stop = function() {
-    if (this.hasStopped == false) {
+    if (this.hasStopped === false) {
         clearInterval(this.simulate_id);
         this.hasStopped = true;
     }
-}
+};
 
 Simulation.prototype.continue = function() {
-    if (this.hasStopped == true && this.hasStarted == true) {
+    if (this.hasStopped === true && this.hasStarted === true) {
         this.simulate_id = this.simulate();
         this.hasStopped = false;
     }
-}
+};
 ```
 
 The reset function cleans the previous data and the charts/graphs from the DOM.
@@ -169,7 +168,7 @@ Simulation.prototype.reset = function() {
     self.hasStarted = false;
     self.time = 0;
     self.sample_time = 0;
-}
+};
 ```
 
 
