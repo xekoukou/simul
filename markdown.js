@@ -11,7 +11,4 @@ $(function() {
         })
         //Create the Math formulas
         //            MathJax.Hub.Typeset();
-
-
-
 })

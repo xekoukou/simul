@@ -3,11 +3,12 @@ function Point(x, y) {
     this.y = y;
 }
 
-function Chart(root_element, y_name, width_ext, height_ext) {
+function Chart(root_element_, x_name_, y_name_, width_ext, height_ext) {
 
-    this.root_element = root_element;
+    this.root_element = root_element_;
     this.data = [];
-    this.y_name = y_name;
+    this.y_name = y_name_;
+    this.x_name = x_name_;
 
     $("#" + this.root_element).empty();
 
@@ -51,6 +52,12 @@ function Chart(root_element, y_name, width_ext, height_ext) {
     var xAxisDraw = svg.append("g")
         .attr("class", "x axis")
         .attr("transform", "translate(0," + height + ")");
+    xAxisDraw.append("text")
+        .attr("x", width)
+        .attr("dx", ".71em")
+        .style("text-anchor", "end")
+        .text(this.x_name);
+
     xAxisDraw.call(xAxis);
 
     var yAxisDraw = svg.append("g")
@@ -60,7 +67,7 @@ function Chart(root_element, y_name, width_ext, height_ext) {
         .attr("y", 6)
         .attr("dy", ".71em")
         .style("text-anchor", "end")
-        .text(y_name);
+        .text(this.y_name);
 
     yAxisDraw.call(yAxis);
 
