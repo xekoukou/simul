@@ -73,10 +73,11 @@ Simulation.prototype.simulate = function() {
         Object.keys(self.xgraphs).forEach(function(key) {
             self.xgraphs[key].killForceAtlas2();
             self.xgraphs[key].refresh();
-            self.xgraphs[key].startForceAtlas2({
-                "worker": true,
-                "barnesHutOptimize": true
-            });
+            self.xgraphs[key].startForceAtlas2();
+//            self.xgraphs[key].startForceAtlas2({
+//                "worker": true,
+//                "barnesHutOptimize": true
+//            });
         });
     }, 1);
 }
@@ -110,10 +111,11 @@ Simulation.prototype.start = function() {
                 "nodes": each[3] == null ? [] : self.values[each[3]],
                 "edges": each[4] == null ? [] : self.values[each[4]]
             });
-            self.xgraphs[each[0]].startForceAtlas2({
-                "worker": true,
-                "barnesHutOptimize": true
-            });
+            self.xgraphs[each[0]].startForceAtlas2();
+//            self.xgraphs[each[0]].startForceAtlas2({
+//               "worker": true,
+//              "barnesHutOptimize": true
+//         });
         });
 
         self.simulate_id = self.simulate();
