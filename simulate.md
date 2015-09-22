@@ -150,10 +150,10 @@ Simulation.prototype.reset = function() {
     self.stop();
 
     self.charts_info.forEach(function(each) {
-        $("#" + each[1]).empty();
+        $("#" + each[2]).empty();
     });
     self.graphs_info.forEach(function(each) {
-        if ($("#" + each[0]).length > 0) {
+        if ($("#" + each[0]).children().length > 0) {
             self.xgraphs[each[0]].killForceAtlas2();
             self.xgraphs[each[0]].kill();
             $("#" + each[0]).empty();
