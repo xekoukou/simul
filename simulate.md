@@ -9,9 +9,9 @@ In order to be able to reset our simulation, we need to keep the initial values 
 
 In order to expose the data to the viewer , we need to be able to incrementaly update our charts/graphs etc.. We also need to provide each chart/graph the location in the html document that we want the chart/graph to exist.
 
-A single chart requires to be provided the variable it exposes. A graph requires 2 variables, the nodes of the graph and the links.
+A single chart requires to be provided the 2 variables of the corresponding axis. If 'time' is passed as the name for the x axis, then the x axis is the number of times we executed the simulation code. A graph requires 2 variables, the nodes of the graph and the links.
 
-The implementations of a chart and a graph can be found in chart.md and graph.md respectively.
+The implementations of a chart and a graph can be found in chart.js and graph.js respectively.
 
 We want to also be able to specify the sampling rate as well the rate in which we update the charts.
 
@@ -46,7 +46,7 @@ function Simulation(initial_values_, charts_info_, graphs_info_, equations_, sam
 ```
 
 The function that calls the simulation code, captures the values and updates the charts is the one below.
-It returns the IntervalId that we can use later to stop it.
+It returns the `IntervalId` that we can use later to stop it.
 
 ```
 Simulation.prototype.simulate = function() {
