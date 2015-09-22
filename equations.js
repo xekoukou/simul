@@ -147,9 +147,8 @@ function population(t, values, graphs_all) {
 
 var simulation = new Simulation(
     initial_values, [
-        ["population", "test_id", 900, 400],
-        ["number_young", "test_id2", 900, 400],
-        ["number_married", "test_id3", 900, 400]
+        ["time","population", "test_id", 900, 400],
+        ["population","number_young", "test_id2", 900, 400]
     ], [
         ["graph_id", 1200, 800, "people", null]
     ], population,10,100);

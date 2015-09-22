@@ -1,7 +1,7 @@
 # Simul
 
 Simul is a tool that simplifies the simulation and exposition of models in the browser.
-We pass the code that represents the simulation, we provide the initial values of the varriables of the problem. Then this tool executes the code continuously, while at intervals sampling the values that we want to show in our charts. After each sample, we update our charts with the new values.
+We provide the code that represents the simulation, we provide the initial values of the variables of the problem. Then this tool executes the code continuously, while at intervals sampling the values that we want to show in our charts. After each sample, we update our charts with the new values.
 We also want our simulation to be started, stoped, continued, reset.
 
 The initial values is an object that has as properties the values we simulate. The keys are the names of the values.
@@ -9,7 +9,7 @@ In order to be able to reset our simulation, we need to keep the initial values 
 
 In order to expose the data to the viewer , we need to be able to incrementaly update our charts/graphs etc.. We also need to provide each chart/graph the location in the html document that we want the chart/graph to exist.
 
-A single chart requires to provide the variable it exposes. A graph requires 2 variables, the nodes of the graph and the links.
+A single chart requires to be provided the variable it exposes. A graph requires 2 variables, the nodes of the graph and the links.
 
 The implementations of a chart and a graph can be found in chart.md and graph.md respectively.
 
@@ -60,7 +60,9 @@ Simulation.prototype.simulate = function() {
             }
             l++;
             Object.keys(self.xpoints).forEach(function(key) {
-                self.xpoints[key].push(new Point(self.time, self.values[key]))
+                var x_name = self.xcharts[key].x_name;
+                var y_name = self.xcharts[key].y_name;
+                self.xpoints[key].push(new Point(x_name == 'time' ? self.time : self.values[x_name], self.values[y_name]))
             });
         }
         self.sample_time++;
@@ -96,8 +98,8 @@ Simulation.prototype.start = function() {
 
 
         self.charts_info.forEach(function(each) {
-            self.xcharts[each[0]] = new Chart(each[1], each[0], each[2], each[3]);
-            self.xpoints[each[0]] = [];
+            self.xcharts[each[2]] = new Chart(each[2],each[0], each[1], each[3], each[4]);
+            self.xpoints[each[2]] = [];
         });
 
         self.graphs_info.forEach(function(each) {

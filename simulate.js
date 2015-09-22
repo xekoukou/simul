@@ -33,7 +33,9 @@ Simulation.prototype.simulate = function() {
             }
             l++;
             Object.keys(self.xpoints).forEach(function(key) {
-                self.xpoints[key].push(new Point(self.time, self.values[key]))
+                var x_name = self.xcharts[key].x_name;
+                var y_name = self.xcharts[key].y_name;
+                self.xpoints[key].push(new Point(x_name == 'time' ? self.time : self.values[x_name], self.values[y_name]))
             });
         }
         self.sample_time++;
@@ -58,8 +60,8 @@ Simulation.prototype.start = function() {
 
 
         self.charts_info.forEach(function(each) {
-            self.xcharts[each[0]] = new Chart(each[1], each[0], each[2], each[3]);
-            self.xpoints[each[0]] = [];
+            self.xcharts[each[2]] = new Chart(each[2],each[0], each[1], each[3], each[4]);
+            self.xpoints[each[2]] = [];
         });
 
         self.graphs_info.forEach(function(each) {
