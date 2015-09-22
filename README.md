@@ -1,0 +1,5 @@
+# simul
+
+For information about this tool, check the simulate.md file.
+
+There is a test page at http://xekoukou.github.io/simul
