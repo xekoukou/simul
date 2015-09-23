@@ -18,7 +18,7 @@ We want to also be able to specify the sampling rate as well the rate in which w
 We encapsulate the data of the simulation in a javascript object.
 
 
-```
+```javascript
 function Simulation(initial_values_, charts_info_, graphs_info_, equations_, sample_rate_, update_rate_) {
    
     this.initial_values = initial_values_;
@@ -48,7 +48,7 @@ function Simulation(initial_values_, charts_info_, graphs_info_, equations_, sam
 The function that calls the simulation code, captures the values and updates the charts is the one below.
 It returns the `IntervalId` that we can use later to stop it.
 
-```
+```javascript
 Simulation.prototype.simulate = function() {
     var self = this;
     return setInterval(function() {
@@ -86,11 +86,11 @@ Next, we need to specify the functions that start,stop,continue and reset the si
 
 For these functions we save 2 variables that show the state of the simulation. 
 `hasStopped` tells us that the simulation has stopped. We do not know whether it is at the beginning or in the middle.
-`hasStarted' tells us the the simulation has started and has done a bit of simulation. We do not know if the simulation continues or not.
+`hasStarted` tells us the the simulation has started and has done a bit of simulation. We do not know if the simulation continues or not.
 
 The start function clones the initial values, initializes the charts and graphs and starts the simulation.
 
-```
+```javascript
 Simulation.prototype.start = function() {
     var self = this;
     if (self.hasStopped === true && self.hasStarted === false) {
@@ -127,7 +127,7 @@ Simulation.prototype.start = function() {
 
 The stop function and continue functions:
 
-```
+```javascript
 Simulation.prototype.stop = function() {
     if (this.hasStopped === false) {
         clearInterval(this.simulate_id);
@@ -145,7 +145,7 @@ Simulation.prototype.continue = function() {
 
 The reset function cleans the previous data and the charts/graphs from the DOM.
 
-```
+```javascript
 Simulation.prototype.reset = function() {
     var self = this;
     self.stop();
